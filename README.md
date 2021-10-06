@@ -20,7 +20,7 @@ To test the app, just run ```npm test``` (after ```npm i```, of course).
 4.To run the tests uncomment NODE_ENV=test in your .env file
 5.To run the tests in the console, use the command npm run test. To open the Replit console, press Ctrl+Shift+P (Cmd if on a Mac) and type "open shell"
 
-# Write the following tests in tests/2_functional-tests.js:
+##### Write the following tests in tests/2_functional-tests.js:
 
 1.Create an issue with every field: POST request to /api/issues/{project}
 2.Create an issue with only required fields: POST request to /api/issues/{project}  
