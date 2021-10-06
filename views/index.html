@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Issue Tracker</title>
+    <link rel="icon" type="image/png" href="https://cdn.freecodecamp.org/universal/favicons/favicon-16x16.png" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="/public/style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg nav nav-tabs navbar-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="float: left">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <h1 class="navbar-brand">
+          Issue Tracker App
+        </h1>
+        <div class="collapse navbar-collapse" id="navbar-menu">
+          <ul class="navbar-nav nav">
+            <li class="nav-item active">
+              <a data-toggle="tab" href="#new-issue-tab" class="nav-link active">Submit New Issue</a>
+            </li>
+            <li class="nav-item">
+              <a data-toggle="tab" href="#update-tab" class="nav-link">Update Issue</a>
+            </li>
+            <li class="nav-item">
+              <a data-toggle="tab" href="#delete-tab" class="nav-link">Delete Issue</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+
+
+    <section id='testui' style='margin-left: 50px;'>
+      <div class="tab-content">
+        <div id="new-issue-tab" class="tab-pane fade in active show">
+
+          <h3 class=" pt-2 pb-2">Submit new issue on: apitest</h3>
+          <form id="testForm" class="border shadow">
+            <input type="text" name="issue_title" placeholder="Issue Title*" required=''><br>
+            <textarea type="text" name="issue_text" placeholder="Issue Description*" required=''></textarea><br>
+            <div class="input-row">
+              <input type="text" class="third" name="created_by" placeholder="Created By*" required=''><br>
+              <input type="text" class="third" name="assigned_to" placeholder="Assigned To (optional)"><br>
+              <input type="text" class="third end" name="status_text" placeholder="Status Text (optional)"> 
+            </div>
+            <div class="form-group text-right">
+              <button type="submit" class="btn btn-primary">Submit Issue</button>
+            </div>
+          </form>
+          <h2 class="pt-3">API Tests:</h2>
+          <div id="test-caption">** Any issue submitted here will be assigned to the apitest project.
+            <br>*** To submit issues for other projects, type your project in the address bar, and then submit your issues.
+          <br>**** Example: https://issue-tracker.murphy1188.repl.co/{your-project-name}</div>
+        </div>
+
+        <div id="update-tab" class="tab-pane fade">
+          <h3>Update issue on <i>apitest</i> (Change any or all to update issue on the _id supplied)</h3>
+          <form id="testForm2" class="border shadow">
+            <input type="text" name="_id" placeholder="Issue _id*" required=''><br>
+            <input type="text" name="issue_title" placeholder="Title (optional)"><br>
+            <textarea type="text" name="issue_text" placeholder="Text (optional)"></textarea>
+            <div class="input-row">
+              <input type="text" class="third" name="created_by" placeholder="Created By (optional)"><br>
+              <input type="text" class="third" name="assigned_to" placeholder="Assigned To (optional)"><br>
+              <input type="text" class="third" name="status_text" placeholder="Status Text (optional)">
+            </div>
+            <!--<div class="form-group form-check">
+              <label class="form-check-label"><input type="checkbox" name="open" value="false" class="form-check-input"> Check to close issue</label>
+            </div> -->
+            <div class="row">
+              <div class="form-group half-width">
+                <label class="switch"><input type="checkbox" name="open" id="togBtn" value="false"><div class="slider round"><span class="closedIssue toggle-label">CLOSED</span><span class="openIssue toggle-label">OPEN</span></div></label>
+              </div>
+              <div class="form-group half-width text-right">
+                <button type="submit" class="btn btn-primary">Submit Issue</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div id="delete-tab" class="tab-pane fade">
+          <h3>Delete issue on <i>apitest</i></h3>
+          <form id="testForm3" class="border shadow">
+            <input type="text" name="_id" placeholder="Issue _id*" required=''><br>
+            <div class="form-group text-right">
+              <button type="submit" class="btn btn-primary">Delete Issue</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+      <code id='jsonResult'></code>
+    </section>
+
+    <hr style='margin: 50px; margin-top: 50px'>
+        <section style="margin: 0 50px;">
+      <h3>Example <code>GET</code> usage</h3>
+      <code>/api/issues/{project}</code><br>
+      <code>/api/issues/{project}?open=true&amp;assigned_to=Joe</code><br>
+      <h3>Example return</h3>
+      <pre>
+<code>[
+  { 
+    "_id": "5871dda29faedc3491ff93bb",
+    "issue_title": "Fix error in posting data",
+    "issue_text": "When we post data it has an error.",
+    "created_on": "2017-01-08T06:35:14.240Z",
+    "updated_on": "2017-01-08T06:35:14.240Z",
+    "created_by": "Joe",
+    "assigned_to": "Joe",
+    "open": true,
+    "status_text": "In QA"
+  },
+  ...
+ ]
+</code>
+</pre>
+<h3>Examples</h3>
+      Go to <a href='/api/issues/apitest/'><code>/api/issues/apitest/</code></a>  project
+    <!-- Your web-app is https, so your scripts need to be too -->
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"
+            integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
+            crossorigin="anonymous"></script>
+    <script>
+      $(function() {
+        $('#testForm').submit(function(e) {
+          $.ajax({
+            url: '/api/issues/apitest',
+            type: 'post',
+            data: $('#testForm').serialize(),
+            success: function(data) {
+              $('#jsonResult').text(JSON.stringify(data));
+            }
+          });
+          e.preventDefault();
+        });
+        $('#testForm2').submit(function(e) {
+          $.ajax({
+            url: '/api/issues/apitest',
+            type: 'put',
+            data: $('#testForm2').serialize(),
+            success: function(data) {
+              $('#jsonResult').text(JSON.stringify(data));
+            }
+          });
+          e.preventDefault();
+        });
+        $('#testForm3').submit(function(e) {
+          $.ajax({
+            url: '/api/issues/apitest',
+            type: 'delete',
+            data: $('#testForm3').serialize(),
+            success: function(data) {
+              $('#jsonResult').text(JSON.stringify(data));
+            }
+          });
+          e.preventDefault();
+        });
+      });
+  </script>
+
+  </body>
+</html>
